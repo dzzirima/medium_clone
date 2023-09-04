@@ -22,14 +22,14 @@ public class UserProfile {
 
     private String bio;
     private String userName;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinTable(name = "relation" ,
-        joinColumns = @JoinColumn(name = "id") ,
+        joinColumns = @JoinColumn(name = "user_id") ,
         inverseJoinColumns = @JoinColumn(name = "following")
     )
     private List<UserProfile> following;
 
-    @ManyToMany(mappedBy = "following")
+    @ManyToMany(mappedBy = "following" ,fetch = FetchType.LAZY)
     private List<UserProfile> followers;
 
 }
