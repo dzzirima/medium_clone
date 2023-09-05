@@ -7,6 +7,8 @@ import com.suprememedia.funda.comment.repository.ICommentRepository;
 import com.suprememedia.funda.utils.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class CommentServiceImpl implements ICommentService{
@@ -43,8 +45,6 @@ public class CommentServiceImpl implements ICommentService{
             return " Comment updated successfully ";
         }
 
-
-
         return "No comment record was updated." ;
     }
 
@@ -52,5 +52,10 @@ public class CommentServiceImpl implements ICommentService{
     public String deleteCommentById(Long commentId) {
         commentRepository.deleteById(commentId);
         return "Comment successfully deleted";
+    }
+
+    @Override
+    public List<Comment> findAll() {
+        return commentRepository.findAll();
     }
 }

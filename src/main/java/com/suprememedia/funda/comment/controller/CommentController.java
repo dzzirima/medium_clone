@@ -6,6 +6,7 @@ import com.suprememedia.funda.comment.model.Comment;
 import com.suprememedia.funda.comment.service.CommentServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,26 +23,26 @@ public class CommentController {
 
     @PostMapping
     public Comment saveComment(
-            Comment comment
+            @RequestBody Comment comment
     ){
         return  commentService.saveComment(comment);
 
     }
     public Comment getCommentById(
-            Long commentId
+            @RequestBody Long commentId
     ){
         return  commentService.findCommentById(commentId);
 
     }
 
     public String updateComment(
-            UpdateCommentDto updateCommentDto
+           @RequestBody UpdateCommentDto updateCommentDto
     ){
         return commentService.updateComment(updateCommentDto);
     }
 
     public String deleteComment(
-            Long commentId
+           @RequestBody Long commentId
     ){
         return  commentService.deleteCommentById(commentId);
     }
