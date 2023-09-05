@@ -18,7 +18,7 @@ public class Topic {
             generator = "topic_sequence",
             strategy = GenerationType.SEQUENCE
     )
-    Double Id;
-    String topicName;
+    private Long id;
+   private String topicName;
 
 }

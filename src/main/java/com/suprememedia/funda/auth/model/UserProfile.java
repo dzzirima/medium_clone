@@ -17,7 +17,7 @@ public class UserProfile {
             generator = "article_sequence",
             strategy = GenerationType.SEQUENCE
     )
-    private Double Id;
+    private Long id;
     private  String profileImageUrl;
 
     private String bio;

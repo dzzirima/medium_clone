@@ -1,12 +1,15 @@
 package com.suprememedia.funda.comment.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import com.suprememedia.funda.article.model.Article;
+import com.suprememedia.funda.auth.model.UserProfile;
+import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
+
+@Entity
+@Data
 public class Comment {
     @Id
     @SequenceGenerator(
@@ -18,9 +21,30 @@ public class Comment {
             generator = "comment_sequence",
             strategy = GenerationType.SEQUENCE
     )
-    Double Id;
-    String content;
-    int claps;
-    List<Comment> comments;
+    private Long id;
+    private String content;
+    private int claps;
+
+
+    @ManyToOne
+    @JoinColumn(
+            name = "author",
+            referencedColumnName = "id"
+    )
+    private UserProfile author;
+
+    @ManyToOne()
+    @JoinColumn(
+            name = "article_id",
+            referencedColumnName = "id"
+    )
+    private Article article;
+
+    @OneToMany
+    @JoinColumn(
+            name = "comments",
+            referencedColumnName = "id"
+    )
+    private List<Comment> comments;
 
 }
