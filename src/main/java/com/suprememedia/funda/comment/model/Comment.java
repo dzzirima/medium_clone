@@ -33,14 +33,16 @@ public class Comment {
     )
     private UserProfile author;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "article_id",
             referencedColumnName = "id"
     )
     private Article article;
 
-    @OneToMany
+    @OneToMany(
+            fetch = FetchType.LAZY
+    )
     @JoinColumn(
             name = "comments",
             referencedColumnName = "id"
