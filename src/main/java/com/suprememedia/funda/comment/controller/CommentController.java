@@ -1,6 +1,7 @@
 package com.suprememedia.funda.comment.controller;
 
 
+import com.suprememedia.funda.comment.dto.CommentRequestDto;
 import com.suprememedia.funda.comment.dto.UpdateCommentDto;
 import com.suprememedia.funda.comment.model.Comment;
 import com.suprememedia.funda.comment.service.CommentServiceImpl;
@@ -18,14 +19,15 @@ public class CommentController {
     private  final CommentServiceImpl commentService;
 
     public CommentController(CommentServiceImpl commentService) {
+
         this.commentService = commentService;
     }
 
     @PostMapping
     public Comment saveComment(
-            @RequestBody Comment comment
-    ){
-        return  commentService.saveComment(comment);
+            @RequestBody CommentRequestDto commentRequestDto
+            ){
+        return  commentService.saveComment(commentRequestDto);
 
     }
     public Comment getCommentById(
@@ -46,12 +48,5 @@ public class CommentController {
     ){
         return  commentService.deleteCommentById(commentId);
     }
-
-
-
-
-
-
-
 
 }

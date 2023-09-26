@@ -1,11 +1,13 @@
 package com.suprememedia.funda.topic.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 
 
 @Entity
+@Data
 public class Topic {
 
     @Id
@@ -20,5 +22,6 @@ public class Topic {
     )
     private Long id;
    private String topicName;
+
 
 }

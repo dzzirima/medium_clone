@@ -8,6 +8,7 @@ import java.util.List;
 public interface IArticleService {
     Article findById(Long id);
     Article saveArticle(Article article);
+     boolean existsById(Long articleId);
 
     String updateArticle(ArticleUpdateDto articleRequestDto);
 

@@ -1,6 +1,9 @@
 package com.suprememedia.funda.comment.service;
 
 import com.suprememedia.funda.article.model.Article;
+import com.suprememedia.funda.article.service.ArticleServiceImpl;
+import com.suprememedia.funda.article.service.IArticleService;
+import com.suprememedia.funda.comment.dto.CommentRequestDto;
 import com.suprememedia.funda.comment.dto.UpdateCommentDto;
 import com.suprememedia.funda.comment.model.Comment;
 import com.suprememedia.funda.comment.repository.ICommentRepository;
@@ -13,13 +16,27 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements ICommentService{
     private final ICommentRepository commentRepository;
+    private  final IArticleService articleService;
 
-    public CommentServiceImpl(ICommentRepository commentRepository) {
+    public CommentServiceImpl(ICommentRepository commentRepository, IArticleService articleService) {
+
         this.commentRepository = commentRepository;
+        this.articleService = articleService;
     }
 
     @Override
-    public Comment saveComment(Comment comment) {
+    public Comment saveComment(CommentRequestDto commentRequestDto) {
+
+        Comment comment = new Comment();
+
+        // get article
+        Article foundArticle = articleService.findById(commentRequestDto.articleId());
+        //setting content of comment
+        comment.setContent(commentRequestDto.content());
+        comment.setClaps(commentRequestDto.claps());
+        comment.setArticle(foundArticle);
+
+
         return commentRepository.save(comment);
     }
 

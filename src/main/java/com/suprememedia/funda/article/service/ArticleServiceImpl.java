@@ -20,7 +20,7 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public Article findById(Long id) {
         return articleRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Article with id [ %s ]".formatted(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Article with id [ %s ] not found".formatted(id)
                 )
         );
     }
@@ -28,6 +28,11 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public Article saveArticle(Article article) {
         return articleRepository.save(article);
+    }
+
+    @Override
+    public boolean existsById(Long articleId) {
+        return articleRepository.existsById(articleId);
     }
 
     @Override

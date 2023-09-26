@@ -2,6 +2,7 @@ package com.suprememedia.funda.comment.model;
 
 import com.suprememedia.funda.article.model.Article;
 import com.suprememedia.funda.auth.model.UserProfile;
+import com.suprememedia.funda.topic.model.Topic;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -33,7 +34,7 @@ public class Comment {
     )
     private UserProfile author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY ,optional = false)
     @JoinColumn(
             name = "article_id",
             referencedColumnName = "id"
@@ -48,5 +49,12 @@ public class Comment {
             referencedColumnName = "id"
     )
     private List<Comment> comments;
+
+    @OneToMany
+    @JoinColumn(
+            name = "topicList",
+            referencedColumnName = "id"
+    )
+    private List<Topic> topicList;
 
 }

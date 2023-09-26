@@ -1,13 +1,14 @@
 
 server:
-  port: 4001
+  port: 4000
+  error:
+    include-message: always
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: smallfish
-    url: jdbc:mysql://localhost:3306/funda
-    password: SmallFish@1!
+    driver-class-name: org.postgresql.Driver
+    password: fanset
+    url: jdbc:postgresql://localhost:5432/funda
+    username:
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    show-sql: true
+      ddl-auto: create
