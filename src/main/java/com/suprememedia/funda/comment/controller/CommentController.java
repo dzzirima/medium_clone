@@ -5,11 +5,11 @@ import com.suprememedia.funda.comment.dto.CommentRequestDto;
 import com.suprememedia.funda.comment.dto.UpdateCommentDto;
 import com.suprememedia.funda.comment.model.Comment;
 import com.suprememedia.funda.comment.service.CommentServiceImpl;
+import jakarta.websocket.server.PathParam;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -48,5 +48,20 @@ public class CommentController {
     ){
         return  commentService.deleteCommentById(commentId);
     }
+
+    @GetMapping("/allq")
+    public List<Comment> getAllComments(
+    ){
+        return  commentService.findAll();
+    }
+    @GetMapping("/all")
+    public List<Comment> getCommentsByArticle(
+            @RequestParam Long articleId
+    ){
+        List<Comment> commentsByArticleId = commentService.findCommentsByArticleId(articleId);
+        System.out.println("commentsByArticleId.stream().count() = " + commentsByArticleId.stream().count());
+        return commentsByArticleId;
+    }
+
 
 }

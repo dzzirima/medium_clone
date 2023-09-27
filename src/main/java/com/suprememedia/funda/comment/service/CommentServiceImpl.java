@@ -75,4 +75,9 @@ public class CommentServiceImpl implements ICommentService{
     public List<Comment> findAll() {
         return commentRepository.findAll();
     }
+
+    @Override
+    public List<Comment> findCommentsByArticleId(Long articleId) {
+        return commentRepository.findCommentsByArticle_Id(articleId);
+    }
 }

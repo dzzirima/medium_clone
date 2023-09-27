@@ -11,10 +11,10 @@ public interface ICommentService {
 
     Comment findCommentById(Long commentId);
 
-
     String updateComment(UpdateCommentDto updateCommentDto);
 
     String deleteCommentById( Long commentId);
 
     List<Comment> findAll();
+    List<Comment> findCommentsByArticleId(Long articleId);
 }

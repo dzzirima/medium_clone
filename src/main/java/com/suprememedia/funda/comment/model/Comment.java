@@ -1,5 +1,7 @@
 package com.suprememedia.funda.comment.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.suprememedia.funda.article.model.Article;
 import com.suprememedia.funda.auth.model.UserProfile;
 import com.suprememedia.funda.topic.model.Topic;
@@ -44,17 +46,27 @@ public class Comment {
     @OneToMany(
             fetch = FetchType.LAZY
     )
+    @JsonManagedReference
     @JoinColumn(
             name = "comments",
             referencedColumnName = "id"
     )
     private List<Comment> comments;
 
-    @OneToMany
-    @JoinColumn(
-            name = "topicList",
-            referencedColumnName = "id"
-    )
-    private List<Topic> topicList;
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", claps=" + claps +
+                '}';
+    }
+
+    //    @OneToMany
+//    @JoinColumn(
+//            name = "topicList",
+//            referencedColumnName = "id"
+//    )
+//    private List<Topic> topicList;
 
 }
