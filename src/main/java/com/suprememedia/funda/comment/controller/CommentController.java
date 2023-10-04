@@ -1,7 +1,9 @@
 package com.suprememedia.funda.comment.controller;
 
 
+import com.suprememedia.funda.auth.model.UserProfile;
 import com.suprememedia.funda.comment.dto.CommentRequestDto;
+import com.suprememedia.funda.comment.dto.CommentResDto;
 import com.suprememedia.funda.comment.dto.UpdateCommentDto;
 import com.suprememedia.funda.comment.model.Comment;
 import com.suprememedia.funda.comment.service.CommentServiceImpl;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -55,12 +58,25 @@ public class CommentController {
         return  commentService.findAll();
     }
     @GetMapping("/all")
-    public List<Comment> getCommentsByArticle(
+    public List<CommentResDto> getCommentsByArticle(
             @RequestParam Long articleId
     ){
         List<Comment> commentsByArticleId = commentService.findCommentsByArticleId(articleId);
+
+        List<CommentResDto>  commentResDtos = commentsByArticleId.stream().map(comment -> {
+            UserProfile author = comment.getAuthor();
+            return new CommentResDto(
+                    comment.getArticle().getId(),
+                    comment.getContent(),
+                    comment.getClaps(),
+                    comment.getId(),
+                    comment.getAuthor().getId()
+
+
+            );
+        }).toList();
         System.out.println("commentsByArticleId.stream().count() = " + commentsByArticleId.stream().count());
-        return commentsByArticleId;
+        return commentResDtos;
     }
 
 

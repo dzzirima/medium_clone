@@ -3,6 +3,7 @@ package com.suprememedia.funda.article.service;
 import com.suprememedia.funda.article.dto.ArticleUpdateDto;
 import com.suprememedia.funda.article.model.Article;
 import com.suprememedia.funda.article.repository.ArticleRepository;
+import com.suprememedia.funda.auth.repository.UserProfileRepository;
 import com.suprememedia.funda.utils.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,11 @@ import java.util.List;
 public class ArticleServiceImpl implements IArticleService {
 
     private final ArticleRepository articleRepository;
+    private final UserProfileRepository userProfileRepository;
 
-    public ArticleServiceImpl(ArticleRepository articleRepository) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, UserProfileRepository userProfileRepository) {
         this.articleRepository = articleRepository;
+        this.userProfileRepository = userProfileRepository;
     }
 
     @Override
@@ -27,6 +30,10 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     public Article saveArticle(Article article) {
+
+
+
+        article.setAuthor(userProfileRepository.findById(1L).get());
         return articleRepository.save(article);
     }
 

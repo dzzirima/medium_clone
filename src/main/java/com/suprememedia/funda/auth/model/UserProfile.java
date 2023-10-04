@@ -2,10 +2,12 @@ package com.suprememedia.funda.auth.model;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Data
 public class UserProfile {
     @Id
     @SequenceGenerator(
