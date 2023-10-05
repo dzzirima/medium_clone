@@ -72,7 +72,6 @@ public class CommentController {
                     comment.getId(),
                     comment.getAuthor().getId()
 
-
             );
         }).toList();
         System.out.println("commentsByArticleId.stream().count() = " + commentsByArticleId.stream().count());

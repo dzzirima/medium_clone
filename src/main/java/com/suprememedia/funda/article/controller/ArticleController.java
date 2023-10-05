@@ -21,10 +21,12 @@ public class ArticleController {
     }
     @PostMapping
     public Article saveArticle(
-            @RequestBody Article article
+            @RequestBody ArticleRequestDto articleRequestDto
             ){
 
-        return  articleService.saveArticle(article);
+        // create a new object here nd
+
+        return  articleService.saveArticle(articleRequestDto);
     }
     @GetMapping
     public Article getArticleById(
