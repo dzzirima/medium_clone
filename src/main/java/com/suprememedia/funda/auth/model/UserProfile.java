@@ -11,12 +11,12 @@ import java.util.List;
 public class UserProfile {
     @Id
     @SequenceGenerator(
-            sequenceName = "article_sequence"
-            ,name = "article_sequence",
+            sequenceName = "author_sequence"
+            ,name = "author_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
-            generator = "article_sequence",
+            generator = "author_sequence",
             strategy = GenerationType.SEQUENCE
     )
     private Long id;

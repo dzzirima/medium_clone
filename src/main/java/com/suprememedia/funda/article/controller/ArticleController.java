@@ -47,6 +47,25 @@ public class ArticleController {
         return  articleService.findAll();
 
     }
+    @GetMapping("/all/{topicId}")
+    List<Article> findArticleByTopicId(
+           @PathVariable Long topicId
+
+            ){
+        return  articleService.findArticleByTopic(topicId);
+
+    }
+    List<Article> findArticleByAuthorId(
+           @PathVariable Long authorId
+
+            ){
+        return  articleService.findArticleByAuthor(authorId);
+
+    }
+
+
+
+
 
 
 

@@ -4,6 +4,7 @@ import com.suprememedia.funda.article.dto.ArticleRequestDto;
 import com.suprememedia.funda.article.dto.ArticleUpdateDto;
 import com.suprememedia.funda.article.model.Article;
 import com.suprememedia.funda.article.repository.ArticleRepository;
+import com.suprememedia.funda.auth.model.UserProfile;
 import com.suprememedia.funda.auth.repository.UserProfileRepository;
 import com.suprememedia.funda.topic.model.Topic;
 import com.suprememedia.funda.topic.service.TopicServiceImpl;
@@ -24,6 +25,7 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Autowired
     private  TopicServiceImpl topicService;
+
 
 //    public ArticleServiceImpl(ArticleRepository articleRepository, UserProfileRepository userProfileRepository, ArticleServiceImpl articleService, TopicServiceImpl topicService) {
 //        this.articleRepository = articleRepository;
@@ -86,5 +88,18 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public List<Article> findAll() {
         return articleRepository.findAll();
+    }
+
+    @Override
+    public List<Article> findArticleByAuthor(Long authorId) {
+        UserProfile author = userProfileRepository.findById(authorId).get();
+        return articleRepository.findArticleByAuthor(author);
+    }
+
+    @Override
+    public List<Article> findArticleByTopic(Long topicId) {
+
+        Topic foundTopic = topicService.findTopicById(topicId);
+        return articleRepository.findArticleByTopic(foundTopic);
     }
 }
