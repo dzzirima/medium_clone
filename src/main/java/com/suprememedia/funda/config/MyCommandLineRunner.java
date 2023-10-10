@@ -13,11 +13,11 @@ public class MyCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String...args) throws Exception {
 
-        UserProfile adminProfile =  new UserProfile();
-        adminProfile.setBio("This is the admin bio");
-        adminProfile.setUserName("admin");
-
-        userProfileRepository.save(adminProfile);
+//        UserProfile adminProfile =  new UserProfile();
+//        adminProfile.setBio("This is the admin bio");
+//        adminProfile.setUserName("admin");
+//
+//        userProfileRepository.save(adminProfile);
 
     }
 }

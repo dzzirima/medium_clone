@@ -20,10 +20,15 @@ public class UserProfile {
             strategy = GenerationType.SEQUENCE
     )
     private Long id;
-    private  String profileImageUrl;
-
-    private String bio;
+    private String name;
     private String userName;
+    private  String email;
+    private  String password;
+    private  String roles;
+
+    private  String profileImageUrl;
+    private String bio;
+
     @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinTable(name = "relation" ,
         joinColumns = @JoinColumn(name = "user_id") ,

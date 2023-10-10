@@ -3,7 +3,10 @@ package com.suprememedia.funda.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -17,24 +20,25 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration //TODO meaning :
 @EnableWebSecurity //TODO meaning :
+@EnableMethodSecurity
 public class SecurityConfig {
 
 
     @Bean
     // authentication is handledBy the UserDetailsService
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder){
-        UserDetails  admin = User.withUsername("admin")
-                .password(passwordEncoder().encode("pwd"))
-                .roles("ADMIN")
-                .build();
-        UserDetails  user = User.withUsername("user")
-                .password(passwordEncoder.encode("pwd"))
-                .roles("USER")
-                .build();
+    public UserDetailsService userDetailsService(){
+//        UserDetails  admin = User.withUsername("admin")
+//                .password(passwordEncoder.encode("123"))
+//                .roles("ADMIN")
+//                .build();
+//        UserDetails  user = User.withUsername("user")
+//                .password(passwordEncoder.encode("123"))
+//                .roles("USER")
+//                .build();
 
         // we are not loading them from db , we have to store them in memory
 
-        return  new InMemoryUserDetailsManager(admin, user);
+        return  new UserInforDetailsService();
     }
 
     @Bean
@@ -43,7 +47,7 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/v1/auth/signup", "/product-service/addNewUser").permitAll() // allow permit no authorisation needed for this path
-                                .requestMatchers("/api/v1/admin/**")
+                                .requestMatchers("/api/v1/**")
                                 .authenticated()
                 )
                 .httpBasic(Customizer.withDefaults()).build();
@@ -51,6 +55,15 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return  new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return  authenticationProvider;
     }
 
 }

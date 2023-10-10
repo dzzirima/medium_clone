@@ -1,21 +1,43 @@
 package com.suprememedia.funda.auth.controller;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.suprememedia.funda.auth.model.UserProfile;
+import com.suprememedia.funda.auth.repository.UserProfileRepository;
+import com.suprememedia.funda.auth.service.AuthServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/auth")
 public class AuthController {
 
+    @Autowired
+    private AuthServiceImpl service;
 
-    @GetMapping("/signup")
-    public  String signUpUser(){
-        return  "open URL no authentication here ";
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+    @PostMapping("/signup")
+    public  UserProfile signUpUser(
+            @RequestBody UserProfile userProfile
+            ){
+
+
+       return service.addUser(userProfile);
+
+
     }
-    @GetMapping("/admin")
-    public  String adminUpUser(){
+    @GetMapping("/all")
+    public  String users(){
         return  "welcome to secure url ";
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public  String onlyAdmin(){
+        return  "url for the big guys ... admins only ...? ";
     }
 }
