@@ -5,6 +5,7 @@ import com.suprememedia.funda.auth.dto.AuthRequest;
 import com.suprememedia.funda.auth.model.UserProfile;
 import com.suprememedia.funda.auth.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthServiceImpl implements  IAuthService{
 
+
+
     @Autowired
     private UserProfileRepository  repository;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
