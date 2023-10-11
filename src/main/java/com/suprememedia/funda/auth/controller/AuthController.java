@@ -1,6 +1,7 @@
 package com.suprememedia.funda.auth.controller;
 
 
+import com.suprememedia.funda.auth.dto.AuthRequest;
 import com.suprememedia.funda.auth.model.UserProfile;
 import com.suprememedia.funda.auth.repository.UserProfileRepository;
 import com.suprememedia.funda.auth.service.AuthServiceImpl;
@@ -28,6 +29,13 @@ public class AuthController {
 
        return service.addUser(userProfile);
 
+    }
+
+    @PostMapping("/signin")
+    public String authenticateAndGetToken(
+            @RequestBody AuthRequest authRequest
+            ){
+        return  service.signIn(authRequest);
 
     }
     @GetMapping("/all")

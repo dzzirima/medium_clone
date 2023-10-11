@@ -46,7 +46,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/v1/auth/signup", "/product-service/addNewUser").permitAll() // allow permit no authorisation needed for this path
+                        auth.requestMatchers("/api/v1/auth/signup", "/api/v1/auth/signin").permitAll() // allow permit no authorisation needed for this path
                                 .requestMatchers("/api/v1/**")
                                 .authenticated()
                 )
