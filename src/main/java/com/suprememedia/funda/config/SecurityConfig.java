@@ -51,36 +51,20 @@ public class SecurityConfig {
     }
 
     @Bean
-    // This deals  with authorisation which endpoints to free or not.
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(AbstractHttpConfigurer::disable)
-                                .authorizeHttpRequests(auth ->
+         return http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/v1/auth/signup", "/api/v1/auth/signin").permitAll() // allow permit no authorisation needed for this path
                                 .requestMatchers("/api/v1/**")
                                 .authenticated()
                 )
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                 .sessionManagement(customizer ->customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
+               .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
 
-        return http.build();
-//         http.csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(auth ->
-//                        auth.requestMatchers("/api/v1/auth/signup", "/api/v1/auth/signin").permitAll() // allow permit no authorisation needed for this path
-//                                .requestMatchers("/api/v1/**")
-//                                .authenticated()
-//                )
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authenticationProvider(authenticationProvider())
-//                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
-//                .build();
-//
-//         return  http.build();
+
     }
     @Bean
     public PasswordEncoder passwordEncoder(){
