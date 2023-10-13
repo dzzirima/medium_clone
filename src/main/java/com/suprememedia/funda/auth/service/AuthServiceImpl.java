@@ -2,6 +2,7 @@ package com.suprememedia.funda.auth.service;
 
 import com.suprememedia.funda.auth.controller.AuthController;
 import com.suprememedia.funda.auth.dto.AuthRequest;
+import com.suprememedia.funda.auth.dto.SignInResDto;
 import com.suprememedia.funda.auth.model.UserProfile;
 import com.suprememedia.funda.auth.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,15 @@ public class AuthServiceImpl implements  IAuthService{
     }
 
     @Override
-    public String signIn(AuthRequest authRequest) {
+    public SignInResDto signIn(AuthRequest authRequest) {
 
         Authentication authentication = authenticationManager.authenticate((new UsernamePasswordAuthenticationToken(authRequest.userName(), authRequest.password())));
 
         if(authentication.isAuthenticated()){
-            return jwtService.generateToken(authRequest.userName()) ;
+
+
+            String token = jwtService.generateToken(authRequest.userName());
+            return  new SignInResDto(token);
         }else {
             throw new UsernameNotFoundException("invalid user request !!");
         }

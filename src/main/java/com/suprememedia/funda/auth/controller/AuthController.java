@@ -2,6 +2,7 @@ package com.suprememedia.funda.auth.controller;
 
 
 import com.suprememedia.funda.auth.dto.AuthRequest;
+import com.suprememedia.funda.auth.dto.SignInResDto;
 import com.suprememedia.funda.auth.model.UserProfile;
 import com.suprememedia.funda.auth.repository.UserProfileRepository;
 import com.suprememedia.funda.auth.service.AuthServiceImpl;
@@ -24,9 +25,6 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-
-
     @PostMapping("/signup")
     public  UserProfile signUpUser(
             @RequestBody UserProfile userProfile
@@ -38,7 +36,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public String authenticateAndGetToken(
+    public SignInResDto authenticateAndGetToken(
             @RequestBody AuthRequest authRequest
             ){
 

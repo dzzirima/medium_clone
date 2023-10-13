@@ -10,6 +10,7 @@ import com.suprememedia.funda.topic.model.Topic;
 import com.suprememedia.funda.topic.service.TopicServiceImpl;
 import com.suprememedia.funda.utils.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,12 +46,16 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public Article saveArticle(ArticleRequestDto articleRequestDto) {
 
+
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+
         //finding the topic of this topic
         Topic foundTopic = topicService.findTopicById(articleRequestDto.topicId());
 
         Article article = new Article();
         article.setTopic(foundTopic);
-        article.setAuthor(userProfileRepository.findById(1L).get());
+        article.setAuthor(userProfileRepository.findByName(userName).get());
         return articleRepository.save(article);
     }
 
